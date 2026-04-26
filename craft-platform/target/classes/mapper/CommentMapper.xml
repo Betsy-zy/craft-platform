@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.craft.mapper.CommentMapper">
+    <resultMap id="CommentMap" type="com.craft.entity.Comment">
+        <id column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="target_id" property="targetId"/>
+        <result column="target_type" property="targetType"/>
+        <result column="content" property="content"/>
+        <result column="status" property="status"/>
+        <result column="create_time" property="createTime"/>
+    </resultMap>
+
+    <select id="findAll" resultMap="CommentMap">
+        SELECT * FROM comment
+    </select>
+
+    <select id="findById" parameterType="java.lang.Long" resultMap="CommentMap">
+        SELECT * FROM comment WHERE id = #{id}
+    </select>
+
+    <select id="findByUserId" parameterType="java.lang.Long" resultMap="CommentMap">
+        SELECT * FROM comment WHERE user_id = #{userId}
+    </select>
+
+    <select id="findByTargetIdAndType" resultMap="CommentMap">
+        SELECT * FROM comment WHERE target_id = #{targetId} AND target_type = #{targetType}
+    </select>
+
+    <select id="findActiveComments" resultMap="CommentMap">
+        SELECT * FROM comment WHERE status = 'active'
+    </select>
+
+    <insert id="insert" parameterType="com.craft.entity.Comment">
+        INSERT INTO comment (user_id, target_id, target_type, content, status, create_time)
+        VALUES (#{userId}, #{targetId}, #{targetType}, #{content}, #{status}, NOW())
+    </insert>
+
+    <update id="update" parameterType="com.craft.entity.Comment">
+        UPDATE comment
+        SET user_id = #{userId}, target_id = #{targetId}, target_type = #{targetType}, 
+            content = #{content}, status = #{status}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.Long">
+        DELETE FROM comment WHERE id = #{id}
+    </delete>
+</mapper>

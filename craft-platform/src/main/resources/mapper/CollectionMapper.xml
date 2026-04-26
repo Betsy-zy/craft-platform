@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.craft.mapper.CollectionMapper">
+    <resultMap id="CollectionMap" type="com.craft.entity.CollectionItem">
+        <id column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="target_id" property="targetId"/>
+        <result column="target_type" property="targetType"/>
+        <result column="create_time" property="createTime"/>
+    </resultMap>
+
+    <select id="findAll" resultMap="CollectionMap">
+        SELECT * FROM collection
+    </select>
+
+    <select id="findById" parameterType="java.lang.Long" resultMap="CollectionMap">
+        SELECT * FROM collection WHERE id = #{id}
+    </select>
+
+    <select id="findByUserId" parameterType="java.lang.Long" resultMap="CollectionMap">
+        SELECT * FROM collection WHERE user_id = #{userId}
+    </select>
+
+    <select id="findByUserIdAndTargetIdAndType" resultMap="CollectionMap">
+        SELECT * FROM collection WHERE user_id = #{userId} AND target_id = #{targetId} AND target_type = #{targetType}
+    </select>
+
+    <insert id="insert" parameterType="com.craft.entity.CollectionItem">
+        INSERT INTO collection (user_id, target_id, target_type, create_time)
+        VALUES (#{userId}, #{targetId}, #{targetType}, NOW())
+    </insert>
+
+    <delete id="delete" parameterType="java.lang.Long">
+        DELETE FROM collection WHERE id = #{id}
+    </delete>
+
+    <delete id="deleteByUserIdAndTargetIdAndType">
+        DELETE FROM collection WHERE user_id = #{userId} AND target_id = #{targetId} AND target_type = #{targetType}
+    </delete>
+</mapper>

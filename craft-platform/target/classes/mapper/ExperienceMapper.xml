@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.craft.mapper.ExperienceMapper">
+    <resultMap id="ExperienceMap" type="com.craft.entity.Experience">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="title" property="title"/>
+        <result column="description" property="description"/>
+        <result column="price" property="price"/>
+        <result column="duration" property="duration"/>
+        <result column="craftsman_id" property="craftsmanId"/>
+        <result column="status" property="status"/>
+        <result column="create_time" property="createTime"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="com.craft.entity.Experience" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO experience (name, title, description, price, duration, craftsman_id, status, create_time)
+        VALUES (#{name}, #{title}, #{description}, #{price}, #{duration}, #{craftsmanId}, #{status}, #{createTime})
+    </insert>
+
+    <select id="findById" parameterType="java.lang.Long" resultMap="ExperienceMap">
+        SELECT * FROM experience WHERE id = #{id}
+    </select>
+
+    <select id="findAll" resultMap="ExperienceMap">
+        SELECT * FROM experience
+    </select>
+
+    <select id="findActiveExperiences" resultMap="ExperienceMap">
+        SELECT * FROM experience WHERE status = 'active'
+    </select>
+
+    <select id="findByCraftsmanId" parameterType="java.lang.Long" resultMap="ExperienceMap">
+        SELECT * FROM experience WHERE craftsman_id = #{craftsmanId}
+    </select>
+
+    <update id="update" parameterType="com.craft.entity.Experience">
+        UPDATE experience
+        SET name = #{name},
+            title = #{title},
+            description = #{description},
+            price = #{price},
+            duration = #{duration},
+            craftsman_id = #{craftsmanId},
+            status = #{status}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteById" parameterType="java.lang.Long">
+        DELETE FROM experience WHERE id = #{id}
+    </delete>
+</mapper>

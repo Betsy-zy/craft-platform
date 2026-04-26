@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.craft.mapper.MessageMapper">
+    <resultMap id="BaseResultMap" type="com.craft.entity.Message">
+        <id column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="content" property="content"/>
+        <result column="type" property="type"/>
+        <result column="status" property="status"/>
+        <result column="create_time" property="createTime"/>
+    </resultMap>
+
+    <select id="findAll" resultMap="BaseResultMap">
+        SELECT * FROM messages ORDER BY create_time DESC
+    </select>
+
+    <select id="findByUserId" resultMap="BaseResultMap">
+        SELECT * FROM messages WHERE user_id = #{userId} ORDER BY create_time DESC
+    </select>
+
+    <select id="findUnreadByUserId" resultMap="BaseResultMap">
+        SELECT * FROM messages WHERE user_id = #{userId} AND status = 'unread' ORDER BY create_time DESC
+    </select>
+
+    <select id="countUnreadByUserId" resultType="int">
+        SELECT COUNT(*) FROM messages WHERE user_id = #{userId} AND status = 'unread'
+    </select>
+
+    <select id="findById" resultMap="BaseResultMap">
+        SELECT * FROM messages WHERE id = #{id}
+    </select>
+
+    <insert id="insert" parameterType="com.craft.entity.Message" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO messages (user_id, content, type, status, create_time)
+        VALUES (#{userId}, #{content}, #{type}, #{status}, #{createTime})
+    </insert>
+
+    <update id="update" parameterType="com.craft.entity.Message">
+        UPDATE messages
+        SET user_id = #{userId},
+            content = #{content},
+            type = #{type},
+            status = #{status},
+            create_time = #{createTime}
+        WHERE id = #{id}
+    </update>
+
+    <update id="markAsRead">
+        UPDATE messages SET status = 'read' WHERE id = #{id}
+    </update>
+
+    <update id="markAllAsRead">
+        UPDATE messages SET status = 'read' WHERE user_id = #{userId}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM messages WHERE id = #{id}
+    </delete>
+
+    <delete id="deleteAllByUserId">
+        DELETE FROM messages WHERE user_id = #{userId}
+    </delete>
+</mapper>

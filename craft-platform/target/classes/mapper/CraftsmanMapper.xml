@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.craft.mapper.CraftsmanMapper">
+    <resultMap id="CraftsmanMap" type="com.craft.entity.Craftsman">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="title" property="title"/>
+        <result column="description" property="description"/>
+        <result column="avatar" property="avatar"/>
+        <result column="contact" property="contact"/>
+        <result column="status" property="status"/>
+        <result column="user_id" property="userId"/>
+        <result column="create_time" property="createTime"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="com.craft.entity.Craftsman" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO craftsman (name, title, description, avatar, contact, status, user_id, create_time)
+        VALUES (#{name}, #{title}, #{description}, #{avatar}, #{contact}, #{status}, #{userId}, #{createTime})
+    </insert>
+
+    <select id="findById" parameterType="java.lang.Long" resultMap="CraftsmanMap">
+        SELECT * FROM craftsman WHERE id = #{id}
+    </select>
+
+    <select id="findAll" resultMap="CraftsmanMap">
+        SELECT * FROM craftsman
+    </select>
+
+    <select id="findByStatus" parameterType="java.lang.String" resultMap="CraftsmanMap">
+        SELECT * FROM craftsman WHERE status = #{status}
+    </select>
+
+    <select id="findByUserId" parameterType="java.lang.Long" resultMap="CraftsmanMap">
+        SELECT * FROM craftsman WHERE user_id = #{userId}
+    </select>
+
+    <update id="update" parameterType="com.craft.entity.Craftsman">
+        UPDATE craftsman
+        SET name = #{name},
+            title = #{title},
+            description = #{description},
+            avatar = #{avatar},
+            contact = #{contact},
+            status = #{status},
+            user_id = #{userId}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteById" parameterType="java.lang.Long">
+        DELETE FROM craftsman WHERE id = #{id}
+    </delete>
+</mapper>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.craft.mapper.ProductOrderMapper">
+    <resultMap id="ProductOrderMap" type="com.craft.entity.ProductOrder">
+        <id column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="work_id" property="workId"/>
+        <result column="quantity" property="quantity"/>
+        <result column="total_price" property="totalPrice"/>
+        <result column="status" property="status"/>
+        <result column="create_time" property="createTime"/>
+        <result column="cancel_time" property="cancelTime"/>
+    </resultMap>
+
+    <select id="findAll" resultMap="ProductOrderMap">
+        SELECT * FROM product_order
+    </select>
+
+    <select id="findById" parameterType="java.lang.Long" resultMap="ProductOrderMap">
+        SELECT * FROM product_order WHERE id = #{id}
+    </select>
+
+    <select id="findByUserId" parameterType="java.lang.Long" resultMap="ProductOrderMap">
+        SELECT * FROM product_order WHERE user_id = #{userId}
+    </select>
+
+    <select id="findByWorkId" parameterType="java.lang.Long" resultMap="ProductOrderMap">
+        SELECT * FROM product_order WHERE work_id = #{workId}
+    </select>
+
+    <insert id="insert" parameterType="com.craft.entity.ProductOrder" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO product_order (user_id, work_id, quantity, total_price, status, create_time)
+        VALUES (#{userId}, #{workId}, #{quantity}, #{totalPrice}, #{status}, NOW())
+    </insert>
+
+    <update id="update" parameterType="com.craft.entity.ProductOrder">
+        UPDATE product_order
+        SET user_id = #{userId}, work_id = #{workId}, quantity = #{quantity},
+            total_price = #{totalPrice}, status = #{status}, cancel_time = #{cancelTime}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.Long">
+        DELETE FROM product_order WHERE id = #{id}
+    </delete>
+</mapper>
