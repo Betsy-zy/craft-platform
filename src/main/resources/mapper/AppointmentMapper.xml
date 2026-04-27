@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.craft.mapper.AppointmentMapper">
+    <resultMap id="BaseResultMap" type="com.craft.entity.Appointment">
+        <id column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="experience_id" property="experienceId"/>
+        <result column="appointment_time" property="appointmentTime"/>
+        <result column="status" property="status"/>
+        <result column="create_time" property="createTime"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="com.craft.entity.Appointment" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO appointment (user_id, experience_id, appointment_time, status, create_time)
+        VALUES (#{userId}, #{experienceId}, #{appointmentTime}, #{status}, #{createTime})
+    </insert>
+
+    <select id="findById" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        SELECT * FROM appointment WHERE id = #{id}
+    </select>
+
+    <select id="findAll" resultMap="BaseResultMap">
+        SELECT * FROM appointment
+    </select>
+
+    <select id="findByUserId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        SELECT * FROM appointment WHERE user_id = #{userId}
+    </select>
+
+    <select id="findByStatus" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT * FROM appointment WHERE status = #{status}
+    </select>
+
+    <select id="findByExperienceId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        SELECT * FROM appointment WHERE experience_id = #{experienceId}
+    </select>
+
+    <update id="update" parameterType="com.craft.entity.Appointment">
+        UPDATE appointment
+        SET user_id = #{userId},
+            experience_id = #{experienceId},
+            appointment_time = #{appointmentTime},
+            status = #{status}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteById" parameterType="java.lang.Long">
+        DELETE FROM appointment WHERE id = #{id}
+    </delete>
+</mapper>

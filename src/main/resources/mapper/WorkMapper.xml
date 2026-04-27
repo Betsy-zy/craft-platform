@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.craft.mapper.WorkMapper">
+    <resultMap id="WorkMap" type="com.craft.entity.Work">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="title" property="title"/>
+        <result column="description" property="description"/>
+        <result column="image" property="image"/>
+        <result column="price" property="price"/>
+        <result column="stock" property="stock"/>
+        <result column="craftsman_id" property="craftsmanId"/>
+        <result column="status" property="status"/>
+        <result column="create_time" property="createTime"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="com.craft.entity.Work" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO work (name, title, description, image, price, stock, craftsman_id, status, create_time)
+        VALUES (#{name}, #{title}, #{description}, #{image}, #{price}, #{stock}, #{craftsmanId}, #{status}, #{createTime})
+    </insert>
+
+    <select id="findById" parameterType="java.lang.Long" resultMap="WorkMap">
+        SELECT * FROM work WHERE id = #{id}
+    </select>
+
+    <select id="findAll" resultMap="WorkMap">
+        SELECT * FROM work
+    </select>
+
+    <select id="findActiveWorks" resultMap="WorkMap">
+        SELECT * FROM work WHERE status = 'active'
+    </select>
+
+    <select id="findByCraftsmanId" parameterType="java.lang.Long" resultMap="WorkMap">
+        SELECT * FROM work WHERE craftsman_id = #{craftsmanId} AND status = 'active'
+    </select>
+
+    <update id="update" parameterType="com.craft.entity.Work">
+        UPDATE work
+        SET name = #{name},
+            title = #{title},
+            description = #{description},
+            image = #{image},
+            price = #{price},
+            stock = #{stock},
+            craftsman_id = #{craftsmanId},
+            status = #{status}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteById" parameterType="java.lang.Long">
+        DELETE FROM work WHERE id = #{id}
+    </delete>
+</mapper>
