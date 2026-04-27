@@ -1,0 +1,230 @@
+/* 全局样式 */
+:root {
+  /* 新中式国风颜色 */
+  --primary-color: #C83C23; /* 中国红 */
+  --secondary-color: #D4A276; /* 木色 */
+  --tertiary-color: #8B4513; /* 棕色 */
+  --background-color: #F8F5F0; /* 米白色 */
+  --text-color: #2D2D2D; /* 深灰色 */
+  --light-text: #666666; /* 浅灰色 */
+  --border-color: #E8E8E8; /* 边框色 */
+  --white: #FFFFFF; /* 白色 */
+  
+  /* 字体 */
+  --font-family: '思源宋体', 'Microsoft YaHei', 'SimSun', sans-serif;
+  --font-size-base: 16px;
+  --font-size-large: 18px;
+  --font-size-xlarge: 24px;
+  --font-size-xxlarge: 32px;
+  
+  /* 间距 */
+  --spacing-xs: 8px;
+  --spacing-sm: 16px;
+  --spacing-md: 24px;
+  --spacing-lg: 32px;
+  --spacing-xl: 48px;
+  
+  /* 圆角 */
+  --border-radius-sm: 4px;
+  --border-radius-md: 8px;
+  --border-radius-lg: 12px;
+  
+  /* 阴影 */
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-family);
+  font-size: var(--font-size-base);
+  color: var(--text-color);
+  background-color: var(--background-color);
+  line-height: 1.6;
+}
+
+/* 标题样式 */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-family);
+  font-weight: bold;
+  color: var(--text-color);
+  margin-bottom: var(--spacing-sm);
+}
+
+h1 {
+  font-size: var(--font-size-xxlarge);
+}
+
+h2 {
+  font-size: var(--font-size-xlarge);
+  color: var(--primary-color);
+}
+
+h3 {
+  font-size: var(--font-size-large);
+}
+
+/* 链接样式 */
+a {
+  color: var(--primary-color);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: var(--tertiary-color);
+}
+
+/* 按钮样式 */
+.el-button--primary {
+  background-color: var(--primary-color) !important;
+  border-color: var(--primary-color) !important;
+  color: var(--white) !important;
+}
+
+.el-button--primary:hover {
+  background-color: var(--tertiary-color) !important;
+  border-color: var(--tertiary-color) !important;
+}
+
+.el-button--info {
+  background-color: var(--secondary-color) !important;
+  border-color: var(--secondary-color) !important;
+  color: var(--white) !important;
+}
+
+.el-button--info:hover {
+  background-color: var(--tertiary-color) !important;
+  border-color: var(--tertiary-color) !important;
+}
+
+/* 卡片样式 */
+.el-card {
+  border-radius: var(--border-radius-md) !important;
+  box-shadow: var(--shadow-sm) !important;
+  transition: all 0.3s ease !important;
+  border: 1px solid var(--border-color) !important;
+}
+
+.el-card:hover {
+  box-shadow: var(--shadow-md) !important;
+  transform: translateY(-2px) !important;
+}
+
+/* 表单样式 */
+.el-form-item__label {
+  font-family: var(--font-family) !important;
+  color: var(--text-color) !important;
+}
+
+.el-input__inner {
+  border-radius: var(--border-radius-sm) !important;
+  font-family: var(--font-family) !important;
+}
+
+/* 轮播图样式 */
+.el-carousel__item {
+  position: relative;
+}
+
+/* 导航栏样式 */
+.el-menu {
+  background-color: var(--primary-color) !important;
+}
+
+.el-menu-item {
+  color: var(--white) !important;
+}
+
+.el-menu-item.is-active {
+  color: #ffd04b !important;
+}
+
+/* 面包屑样式 */
+.el-breadcrumb {
+  margin-bottom: var(--spacing-md) !important;
+}
+
+.el-breadcrumb__inner a {
+  color: var(--light-text) !important;
+}
+
+.el-breadcrumb__inner.is-link:hover {
+  color: var(--primary-color) !important;
+}
+
+/* 分页样式 */
+.el-pagination__item.is-active {
+  background-color: var(--primary-color) !important;
+  border-color: var(--primary-color) !important;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  :root {
+    --font-size-base: 14px;
+    --font-size-large: 16px;
+    --font-size-xlarge: 20px;
+    --font-size-xxlarge: 28px;
+    
+    --spacing-md: 16px;
+    --spacing-lg: 24px;
+    --spacing-xl: 32px;
+  }
+}
+
+/* 加载动画 */
+.el-loading-spinner .path {
+  stroke: var(--primary-color) !important;
+}
+
+/* 消息提示 */
+.el-message {
+  min-width: 300px !important;
+}
+
+/* 表格样式 */
+.el-table th {
+  background-color: var(--background-color) !important;
+  font-weight: bold !important;
+  color: var(--text-color) !important;
+}
+
+.el-table td {
+  color: var(--text-color) !important;
+}
+
+/* 标签样式 */
+.el-tag {
+  border-radius: var(--border-radius-sm) !important;
+}
+
+/* 评分样式 */
+.el-rate__icon {
+  color: var(--secondary-color) !important;
+}
+
+/* 自定义滚动条 */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background-color);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--secondary-color);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--tertiary-color);
+}
